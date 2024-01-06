@@ -1,1 +1,23 @@
 
+import {createContext, useContext, useState} from 'react'
+
+const ProjectContext = createContext()
+
+export const ProjectProvider = ({children}) => {
+  const [projectData, setProjectData] = useState({})
+  const [projectsList, setProjectsList] = useState([])
+
+  const addProjectToList = () => {
+    setProjectsList([...projectsList, projectData])
+  }
+
+  return (
+    <ProjectContext.Provider
+      value={{projectData, setProjectData, projectsList, addProjectToList}}
+    >
+      {children}
+    </ProjectContext.Provider>
+  )
+}
+
+export const useProjectContext = () => useContext(ProjectContext)
